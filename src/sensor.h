@@ -9,6 +9,7 @@
 struct sensorData_s {
   uint16_t CO2;
   uint16_t VOC;
+  uint16_t LUX;
 };
 
 typedef enum { SENSOROK, ERROR_AIRQUALITYSENSOR } errorType;
@@ -18,5 +19,6 @@ extern errorType sensor_setup(void);
 extern void messureAirQualityData(void);
 extern void getData(void);
 extern void aquireData(void);
+extern uint16_t getLux(void);
 
 #endif
