@@ -3,22 +3,25 @@
 
 #include <Arduino.h>
 
-#define CCS811_ADDR 0x5B //Default I2C Address
-//#define CCS811_ADDR 0x5A //Alternate I2C Address
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
+#include <configure.h>
 
 struct sensorData_s {
   uint16_t CO2;
   uint16_t VOC;
   uint16_t LUX;
+  sensors_event_t TEMP;
+  sensors_event_t HUMID;
+  boolean MOTION;
+  boolean NOISE;
 };
 
 typedef enum { SENSOROK, ERROR_AIRQUALITYSENSOR } errorType;
 
 extern struct sensorData_s sensorData;
 extern errorType sensor_setup(void);
-extern void messureAirQualityData(void);
-extern void getData(void);
 extern void aquireData(void);
-extern uint16_t getLux(void);
 
 #endif

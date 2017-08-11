@@ -3,7 +3,7 @@
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println();
 
   if (sensor_setup() != SENSOROK) {
@@ -21,6 +21,13 @@ void loop()
   Serial.print(sensorData.VOC);
   Serial.println();
   Serial.println(sensorData.LUX);
+  Serial.println();
+  Serial.println(sensorData.TEMP.temperature);
+  Serial.println(sensorData.HUMID.relative_humidity);
+  Serial.println();
+  Serial.println(sensorData.NOISE);
+  Serial.println();
+  Serial.println(sensorData.MOTION);
 
   delay(1000);
 }
