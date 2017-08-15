@@ -15,7 +15,7 @@ struct sensorData_s {
   sensors_event_t TEMP;
   sensors_event_t HUMID;
   boolean MOTION;
-  boolean NOISE;
+  uint16_t NOISE;
 };
 
 typedef enum { SENSOROK, ERROR_AIRQUALITYSENSOR } errorType;

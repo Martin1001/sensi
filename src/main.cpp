@@ -16,18 +16,20 @@ void setup()
 void loop()
 {
   aquireData();
+  Serial.print("CO2: ");
   Serial.print(sensorData.CO2);
-  Serial.print("  |  ");
+  Serial.print(" ppm | TVOC: ");
   Serial.print(sensorData.VOC);
-  Serial.println();
-  Serial.println(sensorData.LUX);
-  Serial.println();
-  Serial.println(sensorData.TEMP.temperature);
-  Serial.println(sensorData.HUMID.relative_humidity);
-  Serial.println();
-  Serial.println(sensorData.NOISE);
-  Serial.println();
-  Serial.println(sensorData.MOTION);
-
+  Serial.print(" ppm | LUX: ");
+  Serial.print(sensorData.LUX);
+  Serial.print(" | Temperature: ");
+  Serial.print(sensorData.TEMP.temperature);
+  Serial.print(" ° C | Humidity: ");
+  Serial.print(sensorData.HUMID.relative_humidity);
+  Serial.print(" % | ");
+  Serial.print(sensorData.NOISE);
+  Serial.print(" | Motion: ");
+  Serial.print(sensorData.MOTION);
+  Serial.println("");
   delay(1000);
 }

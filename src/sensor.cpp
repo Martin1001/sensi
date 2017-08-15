@@ -1,10 +1,10 @@
 #include <Arduino.h>
 #include "sensor.h"
 
-// CO2 Sensor Libary
+// Air Quality Sensor (CCS811) Libary
 #include "SparkFunCCS811.h"
 
-// DHT Sensor
+// DHT Sensor Library
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <DHT_U.h>
@@ -13,15 +13,17 @@ CCS811 airQualitySensor(CCS811_ADDR);
 DHT_Unified dht(DHTPIN, DHTTYPE);
 
 struct sensorData_s sensorData;
+volatile uint16_t soundcounter = 0;
 
-// Interne Funktionen
+// Internal Function
 extern uint16_t getLux(void);
 extern void triggerMessurement(void);
 extern void getData(void);
+extern void sensor_interupt_handler(void);
 
-// Setup
+// Sensor Setup
 errorType sensor_setup(void) {
-  // Air Quality Sensor
+  // Air Quality Sensor (CCS811)
   CCS811Core::status returnCode = airQualitySensor.begin();
   if (returnCode != CCS811Core::SENSOR_SUCCESS)
   {
@@ -33,7 +35,9 @@ errorType sensor_setup(void) {
 
   pinMode(NOISEPIN, INPUT);
   pinMode(MOTIONPIN, INPUT);
-  
+
+  attachInterrupt(digitalPinToInterrupt(NOISEPIN), sensor_interupt_handler, RISING);
+
   return SENSOROK;
 }
 
@@ -57,9 +61,11 @@ void getData(void) {
   sensorData.CO2 = airQualitySensor.getCO2();
   sensorData.VOC = airQualitySensor.getTVOC();
   sensorData.LUX = getLux();
-  // DHT nicht notwendig, wird vom Trigger gesetzt
   sensorData.MOTION = digitalRead(MOTIONPIN);
-  sensorData.NOISE = digitalRead(NOISEPIN);
+  sensorData.NOISE = soundcounter;
+  soundcounter = 0;
+
+  // not necessary for DHT, is set via trigger
 }
 
 uint16_t getLux(void) {
@@ -70,4 +76,8 @@ uint16_t getLux(void) {
   }
 
   return floor(val / LUXAVERAGE);
+}
+
+void sensor_interupt_handler(void) {
+  soundcounter++;
 }
