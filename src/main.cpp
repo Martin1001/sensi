@@ -1,5 +1,6 @@
 #include <Arduino.h>
-#include "Sensor.h"
+#include "sensor.h"
+#include "led.h"
 
 void setup()
 {
@@ -11,6 +12,8 @@ void setup()
   } else {
     Serial.println("200");
   }
+
+  led_setup();
 }
 
 void loop()
