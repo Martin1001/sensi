@@ -3,22 +3,19 @@
 
 #include <Arduino.h>
 
-#include <Adafruit_Sensor.h>
-#include <DHT.h>
-#include <DHT_U.h>
 #include <configure.h>
 
 struct sensorData_s {
   uint16_t CO2;
   uint16_t VOC;
+  float TEMP;
+  float HUMID;
   uint16_t LUX;
-  sensors_event_t TEMP;
-  sensors_event_t HUMID;
   boolean MOTION;
   uint16_t NOISE;
 };
 
-typedef enum { SENSOROK, ERROR_AIRQUALITYSENSOR } errorType;
+typedef enum { SENSOROK, ERROR_AIRQUALITYSENSOR, ERROR_TEMPERATURSENSOR } errorType;
 
 extern struct sensorData_s sensorData;
 extern errorType sensor_setup(void);
