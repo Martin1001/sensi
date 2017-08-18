@@ -23,9 +23,9 @@ void loop()
   Serial.print(" ppm | LUX: ");
   Serial.print(sensorData.LUX);
   Serial.print(" | Temperature: ");
-  Serial.print(sensorData.TEMP.temperature);
+  Serial.print(sensorData.TEMP);
   Serial.print(" ° C | Humidity: ");
-  Serial.print(sensorData.HUMID.relative_humidity);
+  Serial.print(sensorData.HUMID);
   Serial.print(" % | ");
   Serial.print(sensorData.NOISE);
   Serial.print(" | Motion: ");
